@@ -15,7 +15,7 @@ COPY ../setup.py ./setup.py
 COPY ../pyproject.toml ./pyproject.toml
 
 # Install the velbustcp package
-RUN pip3 install --no-cache-dir .
+RUN pip3 install --no-cache-dir --break-system-packages .
 
 # Copy addon entrypoint
 COPY run.sh /run.sh
