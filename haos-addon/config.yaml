@@ -33,5 +33,3 @@ schema:
   tcp_auth: bool
   tcp_auth_key: str
   log_level: list(debug|info)
-build:
-  context: ..

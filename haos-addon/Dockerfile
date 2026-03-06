@@ -1,24 +1,16 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Install Python and build dependencies
+# Install Python and pip
 RUN apk add --no-cache \
     python3 \
-    py3-pip \
-    py3-serial
+    py3-pip
 
-# Copy application source
-WORKDIR /app
-COPY src ./src
-COPY setup.cfg ./setup.cfg
-COPY setup.py ./setup.py
-COPY pyproject.toml ./pyproject.toml
-
-# Install the velbustcp package
-RUN pip3 install --no-cache-dir --break-system-packages .
+# Install velbustcp from PyPI
+RUN pip3 install --no-cache-dir --break-system-packages velbustcp
 
 # Copy addon entrypoint
-COPY haos-addon/run.sh /run.sh
+COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
 CMD ["/run.sh"]
