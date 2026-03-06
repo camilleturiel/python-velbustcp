@@ -13,7 +13,7 @@ COPY setup.cfg setup.py pyproject.toml ./
 RUN pip3 install --no-cache-dir --break-system-packages .
 
 # Copy addon entrypoint
-COPY haos-addon/run.sh /run.sh
+COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
 CMD ["/run.sh"]
