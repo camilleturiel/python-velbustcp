@@ -9,10 +9,10 @@ RUN apk add --no-cache \
 
 # Copy application source
 WORKDIR /app
-COPY ../src ./src
-COPY ../setup.cfg ./setup.cfg
-COPY ../setup.py ./setup.py
-COPY ../pyproject.toml ./pyproject.toml
+COPY src ./src
+COPY setup.cfg ./setup.cfg
+COPY setup.py ./setup.py
+COPY pyproject.toml ./pyproject.toml
 
 # Install the velbustcp package
 RUN pip3 install --no-cache-dir --break-system-packages .
