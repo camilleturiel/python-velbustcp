@@ -4,15 +4,16 @@ FROM $BUILD_FROM
 # Install Python and pip
 RUN apk add --no-cache \
     python3 \
-    py3-pip \
-    git
+    py3-pip
 
-# Install velbustcp from GitHub
-RUN pip3 install --no-cache-dir --break-system-packages \
-    git+https://github.com/velbus/python-velbustcp.git
+# Copy and install the velbustcp package from local source
+WORKDIR /app
+COPY src ./src
+COPY setup.cfg setup.py pyproject.toml ./
+RUN pip3 install --no-cache-dir --break-system-packages .
 
 # Copy addon entrypoint
-COPY run.sh /run.sh
+COPY haos-addon/run.sh /run.sh
 RUN chmod +x /run.sh
 
 CMD ["/run.sh"]
