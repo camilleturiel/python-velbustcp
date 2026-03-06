@@ -1,0 +1,35 @@
+name: "Velbus TCP Bridge"
+version: "1.0.0"
+slug: "velbustcp"
+description: "Bridge a Velbus serial installation over TCP/IP"
+url: "https://github.com/Velleman/python-velbustcp"
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+startup: application
+boot: auto
+uart: true
+map:
+  - ssl:rw
+ports:
+  27015/tcp: 27015
+ports_description:
+  27015/tcp: "Velbus TCP listener (SSL)"
+options:
+  serial_autodiscover: true
+  serial_port: "/dev/ttyUSB0"
+  tcp_port: 27015
+  tcp_ssl: false
+  tcp_auth: false
+  tcp_auth_key: ""
+  log_level: "info"
+schema:
+  serial_autodiscover: bool
+  serial_port: str
+  tcp_port: port
+  tcp_ssl: bool
+  tcp_auth: bool
+  tcp_auth_key: str
+  log_level: list(debug|info)
