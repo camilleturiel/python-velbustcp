@@ -9,20 +9,20 @@ RUN apk add --no-cache \
     build-base \
     linux-headers
 
-# Copy application source
+# Copy application source (build context must be repo root)
 WORKDIR /app
-COPY ../src ./src
-COPY ../setup.cfg ./setup.cfg
-COPY ../setup.py ./setup.py
-COPY ../pyproject.toml ./pyproject.toml
-COPY ../requirements.txt ./requirements.txt
-COPY ../version.txt ./version.txt
+COPY src ./src
+COPY setup.cfg ./setup.cfg
+COPY setup.py ./setup.py
+COPY pyproject.toml ./pyproject.toml
+COPY requirements.txt ./requirements.txt
+COPY version.txt ./version.txt
 
 # Install the package
 RUN pip3 install --no-cache-dir .
 
 # Copy add-on run script
-COPY run.sh /run.sh
+COPY haos-addon/run.sh /run.sh
 RUN chmod +x /run.sh
 
 CMD ["/run.sh"]
