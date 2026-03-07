@@ -1,27 +1,17 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base-python:3.11-alpine3.18
+ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Install system dependencies
 RUN apk add --no-cache \
-    python3 \
-    py3-pip \
     build-base \
     linux-headers
 
-# Copy application source (build context must be repo root)
-WORKDIR /app
-COPY src ./src
-COPY setup.cfg ./setup.cfg
-COPY setup.py ./setup.py
-COPY pyproject.toml ./pyproject.toml
-COPY requirements.txt ./requirements.txt
-COPY version.txt ./version.txt
-
-# Install the package
-RUN pip3 install --no-cache-dir .
+# Install velbustcp from GitHub
+RUN pip3 install --no-cache-dir \
+    git+https://github.com/velbus/python-velbustcp.git
 
 # Copy add-on run script
-COPY haos-addon/run.sh /run.sh
+COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
 CMD ["/run.sh"]
