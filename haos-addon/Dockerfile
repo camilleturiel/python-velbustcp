@@ -6,9 +6,11 @@ RUN apk add --no-cache \
     build-base \
     linux-headers
 
-# Install velbustcp from GitHub
-RUN pip3 install --no-cache-dir \
-    git+https://github.com/velbus/python-velbustcp.git
+# Copy and install the package from local source
+WORKDIR /app
+COPY src/ ./src/
+COPY setup.cfg setup.py pyproject.toml ./
+RUN pip3 install --no-cache-dir .
 
 # Copy add-on run script
 COPY run.sh /run.sh
