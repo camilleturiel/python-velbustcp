@@ -29,7 +29,9 @@
 	],
 	"serial": {
 		"autodiscover": true,
-		"port": "/dev/ttyACM0"
+		"port": "/dev/ttyACM0",
+		"dtr": false,
+		"rts": true
 	},
 	"logging": {
 		"type": "debug",

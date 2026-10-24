@@ -55,8 +55,17 @@ class Bus:
         self.__transport, self.__protocol = await serial_asyncio_fast.create_serial_connection(
             asyncio.get_event_loop(), VelbusSerialProtocol, url=self.__port, **settings
         )
-        self.__connected = True
 
+        # Apply configured modem control lines
+        try:
+            if self.__options.dtr is not None:
+                self.__transport.serial.dtr = self.__options.dtr
+            if self.__options.rts is not None:
+                self.__transport.serial.rts = self.__options.rts
+        except (OSError, ValueError):
+            self.__logger.warning("Couldn't set DTR/RTS on port %s", self.__port)
+
+        self.__connected = True
         self.__writer = WriterThread(self.__transport)
         self.__logger.info("Serial connection active on port %s", self.__port)
 

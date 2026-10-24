@@ -22,3 +22,17 @@ def test_parse_autodiscover():
     settings_dict["autodiscover"] = "true"
     settings = SerialSettings.parse(settings_dict)
     assert settings.autodiscover
+
+
+def test_defaults_modem_lines():
+
+    settings = SerialSettings()
+    assert settings.dtr is None
+    assert settings.rts is None
+
+
+def test_parse_modem_lines():
+
+    settings = SerialSettings.parse({"dtr": False, "rts": "true"})
+    assert settings.dtr is False
+    assert settings.rts is True
